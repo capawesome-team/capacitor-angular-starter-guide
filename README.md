@@ -1,68 +1,33 @@
-# Trip Expenses
+# Capacitor Angular Starter App
 
-Trip Expenses is an Ionic + Angular mobile app for planning trips, tracking expenses, and managing a traveler profile. Build as a demo app for learning purposes.
+This repo is the demo app we build in our Capacitor Angular Starter guide to wrap an existing Angular web app into a native iOS and Android app using Capacitor, Ionic, and Firebase.
 
-## Demo
+[Check the demo](https://youtube.com/shorts/cr3i03LNmG4)
 
-https://github.com/user-attachments/assets/3536b178-24a5-45e4-9f0f-d63ab18c2931
+[Read the guide](https://capawesome.io/blog/capacitor-angular-starter-guide)
 
+## Built with
 
-
-## Tech Stack
-
-- Ionic 8 + Angular 21 (standalone components)
-- Capacitor 8 (Android + iOS)
+- Angular 21
+- Ionic 8
+- Capacitor 8
 - Firebase (Firestore + Storage)
-- ESLint + Prettier
 
-## Prerequisites
+## Getting started
 
-- Node.js 22+ (recommended for Angular 21 and Capacitor 8)
-- npm
-- Ionic CLI (`npm i -g @ionic/cli`) for `ionic serve`
-- Android Studio / Xcode (for native builds and runs)
+Install dependencies and run:
 
-## Getting Started
+```bash
+npm install
+npm start
+```
 
-1. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app locally:
-
-   ```bash
-   ionic serve
-   ```
-
-   You can also use:
-
-   ```bash
-   npm start
-   ```
-
-## Capacitor Workflows
-
-After web changes or after adding new capacitor plugins, sync native projects:
+To run on native platforms:
 
 ```bash
 npm run build
 npx cap sync
-```
-
-Open native projects:
-
-```bash
-npx cap open android
-npx cap open ios
-```
-
-Run directly on a device/emulator:
-
-```bash
-npx cap run android
-npx cap run ios
+npx cap open android # or ios
 ```
 
 ## Firebase Configuration
@@ -77,11 +42,4 @@ Native Firebase config files (required for device builds):
 - `android/app/google-services.json`
 - `ios/App/App/GoogleService-Info.plist`
 
-These native files are intentionally ignored by git, so each developer can use their own Firebase project configuration.
-
-## Project Structure
-
-- `src/app/features` - Main feature pages (trips, expenses, profile)
-- `src/app/core` - Models, constants, repositories, shared services
-- `src/app/shared` - Shared UI components and pipes
-- `android` / `ios` - Native Capacitor projects
+Note: In this repo, these native files are intentionally ignored by git, so each developer can use their own Firebase project configuration. For your own project make sure to remove this from the `.gitignore`.
