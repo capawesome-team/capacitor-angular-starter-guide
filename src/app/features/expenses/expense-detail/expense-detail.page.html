@@ -1,0 +1,109 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/trips/' + tripId"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Expense</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="editExpense()">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteExpense()" color="danger">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (loading()) {
+  <div class="expense-detail__hero">
+    <ion-skeleton-text
+      animated
+      style="
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        margin-bottom: 12px;
+      "
+    ></ion-skeleton-text>
+    <ion-skeleton-text
+      animated
+      style="width: 80px; height: 13px; margin-bottom: 8px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text
+      animated
+      style="width: 60%; height: 32px; margin-bottom: 6px"
+    ></ion-skeleton-text>
+    <ion-skeleton-text
+      animated
+      style="width: 40%; height: 14px"
+    ></ion-skeleton-text>
+  </div>
+
+  <ion-list lines="full" class="expense-detail__list">
+    @for (i of [1, 2, 3, 4]; track i) {
+    <ion-item>
+      <ion-skeleton-text
+        animated
+        style="width: 100%; height: 48px"
+      ></ion-skeleton-text>
+    </ion-item>
+    }
+  </ion-list>
+  } @else if (expense(); as exp) {
+  <div class="expense-detail__hero">
+    <div class="expense-detail__category-badge" [style.background]="getCategory().color">
+      <ion-icon [name]="getCategory().icon"></ion-icon>
+    </div>
+    <span class="expense-detail__category-label">{{ getCategory().label }}</span>
+    <h1 class="expense-detail__amount">
+      {{ exp.amount | currencyFormat : exp.currency }}
+    </h1>
+    <p class="expense-detail__date">{{ exp.date | date : 'fullDate' }}</p>
+  </div>
+
+  <ion-list lines="full" class="expense-detail__list">
+    @if (exp.notes) {
+    <ion-item>
+      <ion-icon
+        name="document-text-outline"
+        slot="start"
+        color="medium"
+      ></ion-icon>
+      <ion-label>
+        <p>Notes</p>
+        <h3>{{ exp.notes }}</h3>
+      </ion-label>
+    </ion-item>
+    }
+
+    <ion-item>
+      <ion-icon name="cash-outline" slot="start" color="medium"></ion-icon>
+      <ion-label>
+        <p>Currency</p>
+        <h3>{{ exp.currency }}</h3>
+      </ion-label>
+    </ion-item>
+
+    @if (exp.attachment) {
+    <ion-item [button]="true" (click)="openAttachment()">
+      <ion-icon name="attach-outline" slot="start" color="medium"></ion-icon>
+      <ion-label>
+        <p>Attachment</p>
+        <h3>{{ exp.attachment.fileName }}</h3>
+      </ion-label>
+      <ion-icon name="open-outline" slot="end" color="medium"></ion-icon>
+    </ion-item>
+    }
+
+    <ion-item>
+      <ion-icon name="time-outline" slot="start" color="medium"></ion-icon>
+      <ion-label>
+        <p>Created</p>
+        <h3>{{ exp.createdAt | date : 'medium' }}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  }
+</ion-content>

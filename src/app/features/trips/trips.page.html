@@ -1,0 +1,118 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>My Trips</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  @if (loading()) {
+    <div class="trips-page__list">
+      @for (i of [1, 2, 3]; track i) {
+        <ion-card class="trip-card">
+          <ion-skeleton-text
+            animated
+            style="width: 100%; height: 168px"
+          ></ion-skeleton-text>
+          <ion-card-content class="trip-card__body">
+            <div class="trip-card__header">
+              <ion-skeleton-text
+                animated
+                style="width: 60%; height: 18px"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                animated
+                style="width: 60px; height: 22px; border-radius: 999px"
+              ></ion-skeleton-text>
+            </div>
+            <ion-skeleton-text
+              animated
+              style="width: 80%; height: 14px; margin-bottom: 6px"
+            ></ion-skeleton-text>
+            <ion-skeleton-text
+              animated
+              style="width: 50%; height: 13px; margin-bottom: 12px"
+            ></ion-skeleton-text>
+            <div class="trip-card__stats">
+              <ion-skeleton-text
+                animated
+                style="width: 40%; height: 20px"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                animated
+                style="width: 30%; height: 16px"
+              ></ion-skeleton-text>
+            </div>
+            <ion-skeleton-text
+              animated
+              style="width: 100%; height: 7px; border-radius: 999px"
+            ></ion-skeleton-text>
+          </ion-card-content>
+        </ion-card>
+      }
+    </div>
+  } @else if (trips().length === 0) {
+    <app-empty-state
+      icon="map-outline"
+      title="No trips yet"
+      message="Start by creating your first trip to begin tracking expenses."
+    >
+    </app-empty-state>
+  } @else {
+    <div class="trips-page__list">
+      @for (trip of trips(); track trip.id) {
+        <ion-card class="trip-card" (click)="openTrip(trip)">
+          @if (trip.coverImage?.downloadUrl; as coverUrl) {
+            <img [src]="coverUrl" alt="" loading="lazy" decoding="async" />
+          } @else {
+            <div class="trip-card__media-placeholder" aria-hidden="true">
+              <ion-icon name="airplane-outline"></ion-icon>
+            </div>
+          }
+          <ion-card-content class="trip-card__body">
+            <div class="trip-card__header">
+              <h2 class="trip-card__name">{{ trip.name }}</h2>
+              <span class="trip-card__currency">{{ trip.currency }}</span>
+            </div>
+            @if (trip.description) {
+              <p class="trip-card__description">{{ trip.description }}</p>
+            }
+            <p class="trip-card__dates">{{ formatDateRange(trip) }}</p>
+            <div class="trip-card__stats">
+              <div class="trip-card__spent">
+                <span class="trip-card__spent-label">Spent</span>
+                <span class="trip-card__spent-value">{{
+                  trip.totalSpent | currencyFormat: trip.currency
+                }}</span>
+              </div>
+              @if (trip.budget && trip.budget > 0) {
+                <div class="trip-card__budget">
+                  <span class="trip-card__budget-label">Budget</span>
+                  <span class="trip-card__budget-value">{{
+                    trip.budget | currencyFormat: trip.currency
+                  }}</span>
+                </div>
+              }
+            </div>
+            @if (trip.budget && trip.budget > 0) {
+              <ion-progress-bar
+                [value]="getBudgetProgress(trip)"
+                [color]="getBudgetColor(trip)"
+              >
+              </ion-progress-bar>
+            }
+          </ion-card-content>
+        </ion-card>
+      }
+    </div>
+  }
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="createTrip()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

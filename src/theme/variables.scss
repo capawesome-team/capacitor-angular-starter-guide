@@ -1,0 +1,130 @@
+:root {
+  --ion-color-primary: #ff5a2f;
+  --ion-color-primary-rgb: 255, 90, 47;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #e04f2a;
+  --ion-color-primary-tint: #ff6b45;
+
+  --ion-color-secondary: #7a49df;
+  --ion-color-secondary-rgb: 122, 73, 223;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #6b40c4;
+  --ion-color-secondary-tint: #875de4;
+
+  --ion-color-tertiary: #cc4f9f;
+  --ion-color-tertiary-rgb: 204, 79, 159;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #b4478c;
+  --ion-color-tertiary-tint: #d364ac;
+
+  --ion-color-success: #2dbf88;
+  --ion-color-success-rgb: 45, 191, 136;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #28a879;
+  --ion-color-success-tint: #45c798;
+
+  --ion-color-warning: #f3a536;
+  --ion-color-warning-rgb: 243, 165, 54;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #d68f2f;
+  --ion-color-warning-tint: #f5b14c;
+
+  --ion-color-danger: #dd4b5f;
+  --ion-color-danger-rgb: 221, 75, 95;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #c34253;
+  --ion-color-danger-tint: #e35d70;
+
+  --ion-color-medium: #7c7892;
+  --ion-color-medium-rgb: 124, 120, 146;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #6d697f;
+  --ion-color-medium-tint: #8a86a0;
+
+  --ion-color-light: #f4f2fb;
+  --ion-color-light-rgb: 244, 242, 251;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d4e0;
+  --ion-color-light-tint: #f6f4fc;
+
+  --ion-font-family:
+    -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --ion-background-color: #f8f6ff;
+  --ion-background-color-rgb: 248, 246, 255;
+  --ion-text-color: #251f36;
+  --ion-text-color-rgb: 37, 31, 54;
+  --ion-toolbar-background: rgba(248, 246, 255, 0.9);
+  --ion-card-background: #ffffff;
+  --ion-item-background: #ffffff;
+  --ion-border-color: #e7e1f5;
+
+  --app-gradient: linear-gradient(
+    135deg,
+    #ff5a2f 0%,
+    #ce4f8a 48%,
+    #7a49df 100%
+  );
+  --app-gradient-soft: linear-gradient(
+    135deg,
+    rgba(255, 90, 47, 0.12) 0%,
+    rgba(122, 73, 223, 0.14) 100%
+  );
+  --app-shadow-card: 0 10px 30px rgba(63, 34, 116, 0.08);
+  --app-shadow-elevated: 0 14px 30px rgba(114, 66, 203, 0.2);
+
+  /* App design tokens for tutorial/demo consistency */
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 12px;
+  --app-space-4: 16px;
+  --app-space-5: 20px;
+  --app-space-6: 24px;
+  --app-space-7: 32px;
+
+  --app-radius-sm: 12px;
+  --app-radius-md: 16px;
+  --app-radius-lg: 18px;
+  --app-radius-xl: 20px;
+  --app-radius-2xl: 24px;
+
+  --app-size-spinner: 18px;
+  --app-size-progress: 7px;
+  --app-size-media-card: 168px;
+  --app-size-cover-preview: 180px;
+
+  --app-layout-max-width: 720px;
+  --app-layout-max-width-wide: 760px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #171324;
+    --ion-background-color-rgb: 23, 19, 36;
+    --ion-text-color: #f4efff;
+    --ion-text-color-rgb: 244, 239, 255;
+    --ion-toolbar-background: rgba(23, 19, 36, 0.9);
+    --ion-card-background: #221b33;
+    --ion-item-background: #221b33;
+    --ion-color-light: #2b2341;
+    --ion-color-light-rgb: 43, 35, 65;
+    --ion-color-light-shade: #241d37;
+    --ion-color-light-tint: #3a3155;
+    --ion-color-medium: #a59fc1;
+    --ion-border-color: #342a4d;
+    --app-gradient-soft: linear-gradient(
+      135deg,
+      rgba(255, 90, 47, 0.2) 0%,
+      rgba(122, 73, 223, 0.28) 100%
+    );
+    --app-shadow-card: 0 14px 30px rgba(0, 0, 0, 0.26);
+    --app-shadow-elevated: 0 18px 34px rgba(0, 0, 0, 0.35);
+  }
+}

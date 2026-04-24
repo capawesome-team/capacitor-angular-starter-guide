@@ -1,0 +1,149 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/trips"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEdit() ? 'Edit Trip' : 'New Trip' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="save()"
+        [disabled]="form.invalid || saving()"
+        [strong]="true"
+      >
+        @if (saving()) {
+        <ion-spinner name="crescent" class="save-spinner"></ion-spinner>
+        } @else { Save }
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-loading
+    [isOpen]="saving()"
+    message="Saving trip..."
+    spinner="crescent"
+    [backdropDismiss]="false"
+  >
+  </ion-loading>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-list lines="full" class="form-list">
+      <ion-item>
+        <ion-input
+          formControlName="name"
+          label="Trip Name"
+          labelPlacement="stacked"
+          placeholder="e.g., Summer in Italy"
+          [clearInput]="true"
+          maxlength="100"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          formControlName="description"
+          label="Description"
+          labelPlacement="stacked"
+          placeholder="Optional trip description"
+          [autoGrow]="true"
+          [rows]="2"
+        >
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item button detail="false" (click)="openDateRangeModal()">
+        <ion-label>
+          <h3>Dates</h3>
+          <p class="trip-form__date-range">
+            {{ form.value.startDate }} – {{ form.value.endDate }}
+          </p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          formControlName="currency"
+          label="Currency"
+          labelPlacement="stacked"
+          interface="action-sheet"
+        >
+          @for (c of currencies; track c.code) {
+          <ion-select-option [value]="c.code"
+            >{{ c.symbol }} {{ c.name }}</ion-select-option
+          >
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          formControlName="budget"
+          label="Budget (optional)"
+          labelPlacement="stacked"
+          type="number"
+          placeholder="0.00"
+          [min]="0"
+        >
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="trip-form__cover">
+      <h4>Cover image</h4>
+
+      @if (coverImage(); as cover) {
+      <div class="trip-form__cover-preview">
+        <img [src]="cover.uri" alt="Trip cover preview" />
+        <div class="trip-form__cover-actions">
+          <ion-button fill="outline" size="small" (click)="attachCoverImage()">
+            <ion-icon slot="start" name="image-outline"></ion-icon>
+            Change image
+          </ion-button>
+          <ion-chip (click)="removeCoverImage()">
+            <ion-icon name="close-circle"></ion-icon>
+            <ion-label>Remove image</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+      } @else {
+      <ion-button expand="block" fill="outline" (click)="attachCoverImage()">
+        <ion-icon slot="start" name="image-outline"></ion-icon>
+        Add cover image
+      </ion-button>
+      }
+    </div>
+  </form>
+  <ion-modal
+    [isOpen]="dateModalOpen"
+    [initialBreakpoint]="0.7"
+    [breakpoints]="[0, 0.7]"
+    (willDismiss)="cancelDateRangeModal()"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="trip-form-modal">
+          <ion-label>Trip dates</ion-label>
+          <div class="trip-form-modal__calendar">
+            <ion-range-calendar
+              [(ngModel)]="dateRange"
+              [options]="dateOptions"
+              [type]="dateType"
+              [format]="'yyyy-MM-dd'"
+            >
+            </ion-range-calendar>
+          </div>
+          <div class="trip-form-modal__footer">
+            <ion-button color="light" (click)="cancelDateRangeModal()"
+              >Cancel</ion-button
+            >
+            <ion-button color="primary" (click)="applyDateRangeModal()"
+              >Save</ion-button
+            >
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

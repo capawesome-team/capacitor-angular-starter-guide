@@ -1,0 +1,79 @@
+.expense-detail__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px var(--app-space-4) 26px;
+  margin: var(--app-space-4) var(--app-space-4) var(--app-space-3);
+  border-radius: var(--app-radius-2xl);
+  background: var(--app-gradient-soft);
+  border: 1px solid var(--ion-border-color);
+}
+
+.expense-detail__category-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--app-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: var(--app-space-3);
+}
+
+.expense-detail__category-label {
+  font-size: 13px;
+  color: var(--ion-color-medium);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expense-detail__amount {
+  font-size: 36px;
+  font-weight: 800;
+  margin: var(--app-space-2) 0 var(--app-space-1);
+  color: var(--ion-text-color);
+}
+
+.expense-detail__date {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+.expense-detail__list {
+  margin: 0 var(--app-space-4) var(--app-space-4);
+  border-radius: var(--app-radius-lg);
+  border: 1px solid var(--ion-border-color);
+  overflow: hidden;
+
+  ion-item {
+    --padding-start: 16px;
+    --inner-padding-top: 10px;
+    --inner-padding-bottom: 10px;
+
+    ion-label p {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ion-color-medium) !important;
+      font-weight: 600;
+    }
+
+    ion-label h3 {
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .expense-detail__hero,
+  .expense-detail__list {
+    max-width: var(--app-layout-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,31 @@
+@media (min-width: 768px) {
+  .form-list,
+  .expense-form__attachment {
+    max-width: var(--app-layout-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.expense-form__attachment {
+  padding: var(--app-space-5) 0;
+
+  h4 {
+    margin: 0 0 var(--app-space-3);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  ion-chip {
+    --background: var(--app-gradient-soft);
+    border: 1px solid var(--ion-border-color);
+    font-size: 13px;
+    min-height: 38px;
+  }
+
+  ion-button {
+    --border-radius: 12px;
+    --border-width: 1.5px;
+    font-weight: 600;
+  }
+}

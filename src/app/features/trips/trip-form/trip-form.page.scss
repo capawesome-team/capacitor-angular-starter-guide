@@ -1,0 +1,87 @@
+@media (min-width: 768px) {
+  .form-list,
+  .trip-form__cover {
+    max-width: var(--app-layout-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.trip-form__date-range {
+  color: var(--ion-text-color);
+}
+
+.trip-form-modal {
+  padding: 30px var(--app-space-4);
+  min-height: 70%;
+  display: flex;
+  flex-direction: column;
+
+  ion-label {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+
+  &__calendar {
+    margin-top: var(--app-space-4);
+  }
+
+  &__footer {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    padding-top: 14px;
+
+    ion-button {
+      flex: 1;
+      margin: 0;
+      height: 46px;
+    }
+  }
+}
+
+.trip-form__cover {
+  padding: var(--app-space-5) 0;
+
+  h4 {
+    margin: 0 0 var(--app-space-3);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  ion-button {
+    --border-radius: 12px;
+    --border-width: 1.5px;
+    font-weight: 600;
+  }
+}
+
+.trip-form__cover-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-3);
+
+  img {
+    width: 100%;
+    height: var(--app-size-cover-preview);
+    object-fit: cover;
+    border-radius: var(--app-radius-md);
+    border: 1px solid var(--ion-border-color);
+    box-shadow: var(--app-shadow-card);
+  }
+
+  ion-chip {
+    width: fit-content;
+    --background: var(--app-gradient-soft);
+    border: 1px solid var(--ion-border-color);
+    font-weight: 500;
+  }
+}
+
+.trip-form__cover-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}

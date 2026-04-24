@@ -1,0 +1,178 @@
+<ion-header class="ion-no-border trip-detail-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/trips"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        class="trip-detail-header__action"
+        shape="round"
+        (click)="editTrip()"
+      >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button
+        class="trip-detail-header__action"
+        shape="round"
+        (click)="deleteTrip()"
+      >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="trip-detail-content" [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  @if (loading()) {
+    <div class="trip-hero">
+      <ion-skeleton-text
+        animated
+        style="width: 100%; height: 100%"
+      ></ion-skeleton-text>
+    </div>
+
+    <div class="trip-summary">
+      <ion-skeleton-text
+        animated
+        style="width: 60%; height: 26px; margin-bottom: 8px"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 40%; height: 14px; margin-bottom: 18px"
+      ></ion-skeleton-text>
+
+      <div class="trip-detail__summary-cards">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="trip-detail__summary-card">
+            <ion-skeleton-text
+              animated
+              style="width: 40%; height: 11px; margin-bottom: 8px"
+            ></ion-skeleton-text>
+            <ion-skeleton-text
+              animated
+              style="width: 70%; height: 20px"
+            ></ion-skeleton-text>
+          </div>
+        }
+      </div>
+
+      <div class="trip-detail__budget-bar">
+        <ion-skeleton-text
+          animated
+          style="flex: 1; height: 7px; border-radius: 999px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 40px; height: 12px"
+        ></ion-skeleton-text>
+      </div>
+    </div>
+
+    <div class="trip-detail__expenses">
+      <div class="trip-detail__expenses-header">
+        <ion-skeleton-text
+          animated
+          style="width: 120px; height: 20px"
+        ></ion-skeleton-text>
+        <ion-skeleton-text
+          animated
+          style="width: 70px; height: 32px; border-radius: 999px"
+        ></ion-skeleton-text>
+      </div>
+      <ion-list lines="none" class="trip-detail__expenses-list">
+        @for (i of [1, 2, 3]; track i) {
+          <ion-item lines="full">
+            <ion-skeleton-text
+              animated
+              style="width: 100%; height: 56px"
+            ></ion-skeleton-text>
+          </ion-item>
+        }
+      </ion-list>
+    </div>
+  } @else if (trip(); as t) {
+    <div class="trip-hero">
+      @if (t.coverImage?.downloadUrl; as coverUrl) {
+        <img class="trip-hero__image" [src]="coverUrl" alt="" />
+      } @else {
+        <div class="trip-hero__placeholder">
+          <ion-icon name="airplane-outline"></ion-icon>
+        </div>
+      }
+      <div class="trip-hero__overlay"></div>
+    </div>
+
+    <div class="trip-summary">
+      <h1 class="trip-summary__title">{{ t.name }}</h1>
+      <p class="trip-summary__dates">{{ formatDateRange() }}</p>
+
+      <div class="trip-detail__summary-cards">
+        <div class="trip-detail__summary-card">
+          <span class="trip-detail__summary-label">Total Spent</span>
+          <span class="trip-detail__summary-value">{{
+            t.totalSpent | currencyFormat: t.currency
+          }}</span>
+        </div>
+        @if (t.budget && t.budget > 0) {
+          <div class="trip-detail__summary-card">
+            <span class="trip-detail__summary-label">Budget</span>
+            <span class="trip-detail__summary-value">{{
+              t.budget | currencyFormat: t.currency
+            }}</span>
+          </div>
+          <div class="trip-detail__summary-card">
+            <span class="trip-detail__summary-label">Remaining</span>
+            <span
+              class="trip-detail__summary-value"
+              [class.over-budget]="(remainingBudget() ?? 0) < 0"
+            >
+              {{ remainingBudget() | currencyFormat: t.currency }}
+            </span>
+          </div>
+        }
+      </div>
+
+      @if (t.budget && t.budget > 0) {
+        <div class="trip-detail__budget-bar">
+          <ion-progress-bar [value]="budgetProgress()" [color]="budgetColor()">
+          </ion-progress-bar>
+          <span class="trip-detail__budget-percent">{{ budgetPercent() }}%</span>
+        </div>
+      }
+    </div>
+
+    <div class="trip-detail__expenses">
+      <div class="trip-detail__expenses-header">
+        <h3>Expenses</h3>
+        <ion-button fill="clear" size="small" (click)="addExpense()">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          Add
+        </ion-button>
+      </div>
+
+      @if (expenses().length === 0) {
+        <app-empty-state
+          icon="receipt-outline"
+          title="No expenses yet"
+          message="Add your first expense to start tracking your spending."
+        >
+        </app-empty-state>
+      } @else {
+        <ion-list lines="none" class="trip-detail__expenses-list">
+          @for (expense of expenses(); track expense.id) {
+            <app-expense-item
+              [expense]="expense"
+              (tap)="openExpense($event)"
+              (delete)="deleteExpense($event)"
+            >
+            </app-expense-item>
+          }
+        </ion-list>
+      }
+    </div>
+  }
+</ion-content>

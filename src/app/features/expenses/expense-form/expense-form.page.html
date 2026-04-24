@@ -1,0 +1,138 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      @if (!isQuickAdd()) {
+      <ion-back-button
+        [defaultHref]="'/trips/' + form.value.tripId"
+      ></ion-back-button>
+      }
+    </ion-buttons>
+    <ion-title>{{ isEdit() ? 'Edit Expense' : 'Add Expense' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="save()"
+        [disabled]="form.invalid || saving()"
+        [strong]="true"
+      >
+        @if (saving()) {
+        <ion-spinner name="crescent" class="save-spinner"></ion-spinner>
+        } @else { Save }
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-loading
+    [isOpen]="saving()"
+    message="Saving expense..."
+    spinner="crescent"
+    [backdropDismiss]="false"
+  >
+  </ion-loading>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-list lines="full" class="form-list">
+      @if (isQuickAdd() || isEdit()) {
+      <ion-item>
+        <ion-select
+          formControlName="tripId"
+          label="Trip"
+          labelPlacement="stacked"
+          interface="action-sheet"
+          (ionChange)="onTripChange()"
+        >
+          @for (trip of trips(); track trip.id) {
+          <ion-select-option [value]="trip.id">{{
+            trip.name
+          }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      }
+
+      <ion-item>
+        <ion-input
+          formControlName="amount"
+          label="Amount"
+          labelPlacement="stacked"
+          type="number"
+          placeholder="0.00"
+          inputmode="decimal"
+          [min]="0"
+          step="0.01"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          formControlName="currency"
+          label="Currency"
+          labelPlacement="stacked"
+          interface="action-sheet"
+        >
+          @for (c of currencies; track c.code) {
+          <ion-select-option [value]="c.code"
+            >{{ c.symbol }} {{ c.code }}</ion-select-option
+          >
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          formControlName="category"
+          label="Category"
+          labelPlacement="stacked"
+          interface="action-sheet"
+        >
+          @for (cat of categories; track cat.id) {
+          <ion-select-option [value]="cat.id">{{
+            cat.label
+          }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          formControlName="date"
+          label="Date"
+          labelPlacement="stacked"
+          type="date"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          formControlName="notes"
+          label="Notes"
+          labelPlacement="stacked"
+          placeholder="What was this expense for?"
+          [autoGrow]="true"
+          [rows]="2"
+        >
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <div class="expense-form__attachment">
+      <h4>Receipt / Attachment</h4>
+
+      @if (attachment(); as att) {
+      <ion-chip (click)="removeAttachment()">
+        <ion-icon name="document-outline"></ion-icon>
+        <ion-label>{{ att.fileName }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+      } @else {
+      <ion-button expand="block" fill="outline" (click)="attachReceipt()">
+        <ion-icon slot="start" name="attach-outline"></ion-icon>
+        Attach Receipt
+      </ion-button>
+      }
+    </div>
+  </form>
+</ion-content>

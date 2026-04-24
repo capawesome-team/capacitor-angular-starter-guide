@@ -1,0 +1,22 @@
+ion-tab-bar {
+  --background: color-mix(in srgb, var(--ion-card-background) 92%, transparent);
+  --border: 1px solid var(--ion-border-color);
+  border-radius: var(--app-radius-lg) var(--app-radius-lg) 0 0;
+  backdrop-filter: blur(12px);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+ion-tab-button {
+  --color: var(--ion-color-medium);
+  --color-selected: var(--ion-color-secondary);
+  font-weight: 600;
+  --padding-top: 10px;
+}
+
+ion-tab-button.tab-selected ion-icon {
+  transform: translateY(-1px);
+}
+
+ion-tab-button ion-icon {
+  transition: transform 0.15s ease;
+}

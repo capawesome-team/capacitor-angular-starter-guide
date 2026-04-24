@@ -1,0 +1,162 @@
+.trips-page__list {
+  padding: var(--app-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+ion-card.trip-card {
+  margin: 0;
+  cursor: pointer;
+  border-radius: var(--app-radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--ion-border-color);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  img {
+    width: 100%;
+    height: var(--app-size-media-card);
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .trip-card__media-placeholder {
+    height: var(--app-size-media-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        color-mix(in srgb, var(--ion-color-primary) 35%, transparent),
+        transparent 50%
+      ),
+      linear-gradient(
+        145deg,
+        color-mix(
+          in srgb,
+          var(--ion-color-primary) 18%,
+          var(--ion-background-color)
+        ),
+        var(--ion-background-color)
+      );
+
+    ion-icon {
+      font-size: 56px;
+      color: color-mix(
+        in srgb,
+        var(--ion-color-primary) 45%,
+        var(--ion-color-medium)
+      );
+      opacity: 0.9;
+    }
+  }
+
+  .trip-card__body {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+
+  .trip-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .trip-card__name {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ion-text-color);
+  }
+
+  .trip-card__currency {
+    font-size: 12px;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--ion-color-primary) 70%, #361f67);
+    background: color-mix(in srgb, var(--ion-color-primary) 14%, #ffffff);
+    border: 1px solid
+      color-mix(in srgb, var(--ion-color-primary) 26%, transparent);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .trip-card__dates {
+    font-size: 13px;
+    color: var(--ion-color-medium);
+    margin: 0 0 14px;
+  }
+
+  .trip-card__description {
+    margin: 0 0 8px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--ion-color-medium);
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .trip-card__stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    gap: 14px;
+  }
+
+  .trip-card__spent,
+  .trip-card__budget {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trip-card__stats span[class$='-label'] {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ion-color-medium);
+    font-weight: 600;
+  }
+
+  .trip-card__spent-value,
+  .trip-card__budget-value {
+    line-height: 1.2;
+  }
+
+  .trip-card__spent-value {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--ion-text-color);
+  }
+
+  .trip-card__budget-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ion-color-medium);
+    text-align: right;
+  }
+
+  ion-progress-bar {
+    height: var(--app-size-progress);
+    --background: var(--ion-color-light);
+  }
+}
+
+@media (min-width: 768px) {
+  .trips-page__list {
+    max-width: var(--app-layout-max-width);
+    margin: var(--app-space-4) auto var(--app-space-7);
+  }
+}

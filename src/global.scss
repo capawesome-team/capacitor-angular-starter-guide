@@ -1,0 +1,106 @@
+/*
+ * App Global CSS
+ */
+
+/* Ionic imports */
+@import '@ionic/angular/css/core.css';
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+@import '@ionic/angular/css/typography.css';
+@import '@ionic/angular/css/display.css';
+
+/* Optional Ionic utilities */
+@import '@ionic/angular/css/padding.css';
+@import '@ionic/angular/css/float-elements.css';
+@import '@ionic/angular/css/text-alignment.css';
+@import '@ionic/angular/css/text-transformation.css';
+@import '@ionic/angular/css/flex-utils.css';
+
+/* Global app styles */
+ion-content {
+  --background: var(--ion-background-color);
+  --padding-bottom: var(--app-space-4);
+}
+
+ion-title {
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -0.2px;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --border-color: var(--ion-border-color);
+}
+
+ion-toolbar {
+  --background: var(--ion-toolbar-background);
+}
+
+ion-button {
+  --border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+ion-button[color='primary'] {
+  --background: var(--app-gradient);
+  --background-activated: var(--app-gradient);
+  --background-hover: var(--app-gradient);
+  --box-shadow: var(--app-shadow-elevated);
+}
+
+ion-fab-button {
+  --background: var(--app-gradient);
+  --background-activated: var(--app-gradient);
+  --box-shadow: var(--app-shadow-elevated);
+}
+
+ion-card,
+.form-list,
+.expense-detail__list,
+.trip-card,
+.trip-detail__summary-card {
+  box-shadow: var(--app-shadow-card);
+}
+
+ion-refresher-content {
+  --color: var(--ion-color-primary);
+}
+
+ion-progress-bar {
+  --progress-background: linear-gradient(
+    90deg,
+    var(--ion-color-primary) 0%,
+    var(--ion-color-secondary) 100%
+  );
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: calc(var(--app-space-7) * 2) 0;
+}
+
+.save-spinner {
+  width: var(--app-size-spinner);
+  height: var(--app-size-spinner);
+}
+
+.form-list {
+  background: transparent;
+  border: 1px solid var(--ion-border-color);
+  border-radius: var(--app-radius-lg);
+  overflow: hidden;
+
+  ion-item {
+    --background: var(--ion-card-background, var(--ion-item-background, #fff));
+    --padding-start: var(--app-space-4);
+    --padding-end: var(--app-space-4);
+    --inner-padding-top: var(--app-space-2);
+    --inner-padding-bottom: var(--app-space-2);
+  }
+}

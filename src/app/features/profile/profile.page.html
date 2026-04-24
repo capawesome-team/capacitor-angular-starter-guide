@@ -1,0 +1,116 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-loading
+    [isOpen]="saving()"
+    message="Saving profile..."
+    spinner="crescent"
+    [backdropDismiss]="false"
+  >
+  </ion-loading>
+
+  @if (loading()) {
+  <div class="profile-page__header">
+    <div class="profile-page__avatar">
+      <ion-skeleton-text
+        animated
+        style="width: 48px; height: 24px; border-radius: 999px"
+      ></ion-skeleton-text>
+    </div>
+    <ion-skeleton-text
+      animated
+      style="width: 60%; height: 14px; margin-bottom: 4px"
+    ></ion-skeleton-text>
+  </div>
+
+  <ion-list lines="full" class="form-list">
+    @for (i of [1, 2, 3]; track i) {
+    <ion-item>
+      <ion-skeleton-text
+        animated
+        style="width: 100%; height: 48px"
+      ></ion-skeleton-text>
+    </ion-item>
+    }
+  </ion-list>
+  } @else {
+  <div class="profile-page__header">
+    <div class="profile-page__avatar" (click)="changeAvatar()">
+      @if (avatarUrl(); as avatarSrc) {
+      <img [src]="avatarSrc" alt="Profile photo" />
+      } @else {
+      <span>{{ getInitials() }}</span>
+      }
+    </div>
+    <ion-button fill="clear" size="small" (click)="changeAvatar()">
+      Change photo
+    </ion-button>
+    <p class="profile-page__subtitle">Manage your preferences</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-list lines="full" class="form-list">
+      <ion-item>
+        <ion-input
+          formControlName="displayName"
+          label="Name"
+          labelPlacement="stacked"
+          placeholder="Your name"
+          [clearInput]="true"
+          maxlength="50"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          formControlName="email"
+          label="Email"
+          labelPlacement="stacked"
+          placeholder="your@email.com"
+          type="email"
+          [clearInput]="true"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          formControlName="defaultCurrency"
+          label="Default Currency"
+          labelPlacement="stacked"
+          interface="action-sheet"
+        >
+          @for (c of currencies; track c.code) {
+          <ion-select-option [value]="c.code"
+            >{{ c.symbol }} {{ c.name }}</ion-select-option
+          >
+          }
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <div class="profile-page__save">
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="form.invalid || saving()"
+      >
+        @if (saving()) {
+        <ion-spinner name="crescent" class="save-spinner"></ion-spinner>
+        } @else { Save Changes }
+      </ion-button>
+    </div>
+  </form>
+
+  <div class="profile-page__info">
+    <p class="profile-page__info-name">Trip Expenses</p>
+    <p class="profile-page__info-version">Version 1.0.0</p>
+    <p class="profile-page__info-credit">Built with Ionic &amp; Capacitor</p>
+  </div>
+  }
+</ion-content>
