@@ -4,7 +4,7 @@ This repo is the demo app we build in our Capacitor Angular Starter guide to wra
 
 [Check the demo](https://youtube.com/shorts/cr3i03LNmG4)
 
-[Read the guide](https://capawesome.io/blog/capacitor-angular-starter-guide)
+[Read the guide](https://capawesome.io/blog/how-to-wrap-an-angular-app-with-capacitor-and-firebase)
 
 ## Built with
 
